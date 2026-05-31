@@ -670,7 +670,7 @@ footer b {
   .hero-title {
     height: 143px;
     margin-top: 17px;
-    font-size: clamp(31px, 9vw, 43px);
+    font-size: clamp(27px, 7.4vw, 34px);
   }
 
   .hero-inner {
