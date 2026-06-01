@@ -1,0 +1,118 @@
+.craft-ui-showcase {
+  min-height: 100vh;
+  padding: 48px clamp(16px, 5vw, 72px) 70px;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 12% 4%, rgba(217, 133, 101, 0.16), transparent 24rem),
+    radial-gradient(circle at 88% 40%, rgba(151, 182, 164, 0.18), transparent 25rem),
+    var(--paper-bg);
+}
+
+.craft-ui-hero {
+  max-width: 760px;
+  margin: 0 auto 36px;
+}
+
+.craft-ui-hero p,
+.craft-ui-hero a {
+  color: var(--ink-soft);
+  font-family: var(--font-meta);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+}
+
+.craft-ui-hero h1 {
+  margin: 10px 0 18px;
+  font-family: var(--font-display);
+  font-size: clamp(42px, 8vw, 78px);
+  font-weight: 400;
+  line-height: 1.06;
+}
+
+.craft-ui-hero h1 span {
+  color: var(--accent-warm);
+}
+
+.craft-ui-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 760px) minmax(220px, 260px);
+  gap: 22px;
+  justify-content: center;
+}
+
+.craft-ui-sections {
+  display: grid;
+  gap: 18px;
+}
+
+.craft-ui-card {
+  padding: 18px;
+  border: 1.5px dashed rgba(118, 81, 62, 0.32);
+  border-radius: var(--craft-radius-soft);
+  background: rgba(255, 250, 242, 0.76);
+  box-shadow: 3px 4px 0 rgba(118, 81, 62, 0.08);
+}
+
+.craft-ui-card h2 {
+  margin: 0 0 16px;
+  font-family: var(--font-ui-hand);
+  font-size: 25px;
+}
+
+.craft-ui-card small {
+  color: var(--ink-soft);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.craft-ui-shape-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 14px;
+}
+
+.craft-ui-shape-grid figure {
+  display: grid;
+  justify-items: center;
+  margin: 0;
+  color: var(--ink-soft);
+  font-family: var(--font-meta);
+  font-size: 12px;
+}
+
+.craft-ui-line-list {
+  display: grid;
+  gap: 3px;
+}
+
+.craft-ui-pattern-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  height: 136px;
+}
+
+.craft-ui-pattern {
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.38);
+}
+
+.craft-ui-cursor-demo {
+  min-height: 130px;
+}
+
+.craft-ui-cursor-demo p {
+  margin: 0;
+  color: var(--ink-soft);
+  line-height: 1.8;
+}
+
+@media (max-width: 860px) {
+  .craft-ui-layout {
+    grid-template-columns: minmax(0, 760px);
+  }
+
+  .craft-ui-layout aside {
+    order: -1;
+  }
+}

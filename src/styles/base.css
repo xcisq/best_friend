@@ -1,0 +1,126 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Patrick Hand";
+  src: url("/fonts/patrick-hand-v25-latin-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --paper-bg: #f6eee2;
+  --paper-layer: #fffaf2;
+  --paper-soft: #f2e4d0;
+  --ink: #76513e;
+  --ink-soft: #a27964;
+  --accent-warm: #d98565;
+  --accent-mint: #97b6a4;
+  --accent-butter: #e6c984;
+  --accent-pink: #dfb7b0;
+  --accent-sky: #a9bdd9;
+  --craft-line-width: 1.6px;
+  --craft-radius-soft: 10px;
+  --craft-material-opacity: 0.26;
+  --craft-motion-intensity: 1;
+  --font-display: "xile", "文心喜乐体", "Kaiti SC", "STKaiti", cursive;
+  --font-body: "kangkang", "素材集市康康体", "Kaiti SC", "STKaiti", cursive;
+  --font-ui-hand: "Patrick Hand", "kangkang", "素材集市康康体", "Kaiti SC", "STKaiti", cursive;
+  --font-meta: "Patrick Hand", "LXGW WenKai Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--paper-bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button,
+video {
+  touch-action: manipulation;
+}
+
+button {
+  font: inherit;
+}
+
+.font-hand {
+  font-family: var(--font-ui-hand);
+}
+
+.font-craft {
+  font-family: var(--font-display);
+}
+
+.text-ink-stroke {
+  color: var(--ink);
+}
+
+.journal-page {
+  --canvas: var(--paper-bg);
+  --muted-ink: var(--ink-soft);
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 15% 12%, rgba(223, 170, 119, 0.14), transparent 24rem),
+    radial-gradient(circle at 85% 60%, rgba(137, 176, 157, 0.11), transparent 22rem),
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.45), transparent 40rem),
+    var(--canvas);
+  padding: 0 18px 34px;
+}
+
+.paper-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--craft-material-opacity);
+  background-image:
+    radial-gradient(rgba(118, 81, 62, 0.19) 0.6px, transparent 0.8px),
+    radial-gradient(rgba(255, 255, 255, 0.9) 0.7px, transparent 0.9px);
+  background-position: 0 0, 9px 11px;
+  background-size: 17px 17px, 19px 19px;
+  mix-blend-mode: multiply;
+}
+
+.craft-filter-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.animated-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center;
+  transition: opacity 160ms ease, transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animated-icon-loop {
+  animation: craft-icon-pulse 2.4s ease-in-out infinite;
+}
+
+.animated-icon.is-active {
+  transform: translateY(-2px) scale(1.14);
+}

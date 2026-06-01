@@ -1,15 +1,46 @@
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
+import {
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from 'react';
 import { PaperShape } from './components/paper-shape';
+import { LordiconMotionStrip, MemoryMotionLayer, StarScatterLayer, ThoughtBubbleCluster } from './components/PageAnimatedEffects';
+import { FriendLettersSection } from './components/FriendLettersSection';
+import { SectionWidgetSprinkles } from './components/SectionWidgetSprinkles';
+import {
+  ClosingPatternFooter,
+  HeroActionBoard,
+  LettersStatsPanel,
+  PatternSampler,
+  TimelineCardTools,
+} from './components/PageCraftComponents';
+import { PageKeepsakes } from './components/PageKeepsakes';
+import { CraftPill, CraftRibbon, FloatingSticker, SectionHeader } from './components/journal-ui';
+import {
+  CareerJourneyScene,
+  CraftFilterDefs,
+  CraftMotionProvider,
+  ScrollProgressTrack,
+  StickyHand,
+  type ProgressSection,
+} from './components/craft';
 import { PosterTitle } from './components/paper-shape/PosterTitle';
 import {
   createDecoration,
   type DecorationItem,
   type DecorationType,
 } from './components/paper-shape/decorations';
-import { journey, type FriendLetter, type MediaAsset } from './content/journey';
+import { journey } from './content/journey';
 
 const INK = '#76513e';
 const ACCENT_INK = '#9c6143';
+const PROGRESS_SECTIONS: ProgressSection[] = [
+  { id: 'memory-hero', label: '开场', icon: 'heart' },
+  { id: 'shared-journey', label: '一起走过', icon: 'leaf' },
+  { id: 'friend-letters', label: '六封信', icon: 'envelope' },
+  { id: 'closing-note', label: '结尾', icon: 'star' },
+];
 
 function decoration(
   id: string,
@@ -33,15 +64,6 @@ const TIMELINE_DECORATIONS: DecorationItem[][] = [
   [decoration('timeline-staple-4', 'staple', 'silver', 44, -8, 8, 0.95)],
   [decoration('timeline-tape-5', 'washi-tape', 'check-sky', 44, -10, -4, 0.9)],
 ];
-
-const LETTER_DECORATIONS: Record<string, DecorationItem[]> = {
-  dichao: [decoration('dichao-tape', 'washi-tape', 'stripe-pink', 46, -10, -5, 1.08)],
-  wenjin: [decoration('wenjin-staple', 'staple', 'rose-gold', 40, -8, -7, 1)],
-  dongxu: [decoration('dongxu-tape', 'washi-tape', 'dots-mint', 72, -10, 5, 1.06)],
-  xiaopeng: [decoration('xiaopeng-staple', 'staple', 'silver', 64, -8, -7, 1)],
-  zhaobin: [decoration('zhaobin-tape', 'washi-tape', 'stars-yellow', 90, -10, 4, 1.03)],
-  tianyue: [decoration('tianyue-staple', 'staple', 'gold', 58, -8, 6, 1)],
-};
 
 function Reveal({ children, className = '' }: { children: ReactNode; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -82,140 +104,68 @@ function DoodleDivider({ symbol = '✦' }: { symbol?: string }) {
   );
 }
 
-function PhotoSlot({ photo, index }: { photo: MediaAsset; index: number }) {
+function HeroMemoryChips() {
   return (
-    <figure className={`photo-slot photo-slot-${(index % 3) + 1}`}>
-      <div className="photo-tape" aria-hidden="true" />
-      {photo.src ? (
-        <img src={photo.src} alt={photo.alt} loading="lazy" width="720" height="520" />
-      ) : (
-        <div className="photo-placeholder" role="img" aria-label={photo.alt}>
-          <span aria-hidden="true">＋</span>
-          <small>{photo.caption ?? '这里放一张照片'}</small>
-        </div>
-      )}
-      {photo.caption && <figcaption>{photo.caption}</figcaption>}
-    </figure>
-  );
-}
-
-function VideoCard({ video }: { video: MediaAsset }) {
-  return (
-    <div className="video-card">
-      <p className="video-label">一段会动的回忆 <span aria-hidden="true">▶</span></p>
-      {video.src ? (
-        <video controls preload="metadata" poster={video.poster} aria-label={video.alt}>
-          <source src={video.src} />
-          你的浏览器暂时无法播放这个视频。
-        </video>
-      ) : (
-        <div className="video-placeholder">
-          <span aria-hidden="true">▷</span>
-          <small>{video.caption ?? '这里可以放一段短视频'}</small>
-        </div>
-      )}
+    <div className="hero-memory-chips" aria-label="纪念页摘要">
+      <span><b>239</b><small>days together</small></span>
+      <span><b>6</b><small>letters saved</small></span>
+      <span><b>∞</b><small>after work chats</small></span>
     </div>
   );
 }
 
-function FriendTicket({
-  friend,
-  active,
-  onOpen,
-}: {
-  friend: FriendLetter;
-  active: boolean;
-  onOpen: () => void;
-}) {
+function ScrapbookSupplyRow() {
   return (
-    <div className={`ticket-wrap ${active ? 'is-active' : ''}`}>
-      <PaperShape
-        preset="ticket"
-        width={274}
-        height={124}
-        roughness={0.46}
-        paperColor="cloud"
-        strokeColor={INK}
-        strokeWidth={1.55}
-        shapeParams={{ shadowOpacity: active ? 0.28 : 0.16, edgeWobble: 0.8 }}
-        contentPadding={{ all: 13, right: 24 }}
-        contentAlign="start"
-      >
-        <button
-          type="button"
-          className="ticket-button"
-          onClick={onOpen}
-          aria-expanded={active}
-          aria-controls={`letter-${friend.id}`}
-        >
-          <span className="ticket-kicker">TO · {friend.name}</span>
-          <strong>{friend.nickname ?? '一封信'}</strong>
-          <span className="ticket-action">{active ? '先收好这封信' : '拆开看看'} <i aria-hidden="true">→</i></span>
-        </button>
-      </PaperShape>
-      <span className="ticket-dot" style={{ backgroundColor: friend.accent }} aria-hidden="true" />
+    <div className="scrapbook-supply-row" aria-hidden="true">
+      <span className="supply-chip supply-chip-note">便签</span>
+      <span className="supply-chip supply-chip-clip">回形针</span>
+      <span className="supply-chip supply-chip-tape">胶带</span>
+      <span className="supply-chip supply-chip-stamp">日期章</span>
     </div>
   );
 }
 
-function LetterPanel({ friend }: { friend: FriendLetter }) {
+function LetterToolRow() {
   return (
-    <div className="opened-letter" id={`letter-${friend.id}`}>
-      <PaperShape
-        preset={friend.paperPreset}
-        layoutMode="fill"
-        width={720}
-        minHeight={420}
-        maxWidth={760}
-        paperColor="cloud"
-        strokeColor={INK}
-        strokeWidth={1.6}
-        roughness={0.54}
-        showPattern
-        patternType="lines"
-        patternParams={{ patternColor: friend.accent, patternOpacity: 0.1, lineGap: 28 }}
-        shapeParams={{ shadowOpacity: 0.2, edgeWobble: 1.1 }}
-        decorations={LETTER_DECORATIONS[friend.id]}
-        contentPadding={{ all: 24, top: 32, bottom: 30 }}
-        contentAlign="start"
-      >
-        <article className="letter-content" style={{ '--friend-accent': friend.accent } as CSSProperties}>
-          <header>
-            <span className="letter-number">LETTER / {friend.name}</span>
-            <h3>{friend.greeting}</h3>
-          </header>
-          <p className="letter-message">{friend.message}</p>
-          <div className="photo-collage">
-            {friend.photos.map((photo, index) => (
-              <PhotoSlot key={`${friend.id}-photo-${index}`} photo={photo} index={index} />
-            ))}
-          </div>
-          {friend.video && <VideoCard video={friend.video} />}
-        </article>
-      </PaperShape>
+    <div className="letter-tool-row" aria-hidden="true">
+      <span>✉ 拆信刀</span>
+      <span>♡ 贴纸</span>
+      <span>NO. 01-06</span>
     </div>
+  );
+}
+
+function ClosingChecklist() {
+  return (
+    <ul className="closing-checklist" aria-label="收尾清单">
+      <li>照片留白已经放好</li>
+      <li>六封信都可以慢慢拆</li>
+      <li>下一次见面继续写</li>
+    </ul>
   );
 }
 
 function App() {
-  const [openFriendId, setOpenFriendId] = useState<string | null>(null);
-  const openFriend = journey.friends.find((friend) => friend.id === openFriendId);
-
-  const toggleFriend = (friendId: string) => {
-    setOpenFriendId((current) => (current === friendId ? null : friendId));
-  };
-
   return (
-    <main className="journal-page">
+    <CraftMotionProvider>
+      <main className="journal-page">
+      <CraftFilterDefs />
+      <ScrollProgressTrack sections={PROGRESS_SECTIONS} />
       <div className="paper-grain" aria-hidden="true" />
       <div className="margin-rule" aria-hidden="true" />
       <span className="floating-doodle doodle-one" aria-hidden="true">✿</span>
       <span className="floating-doodle doodle-two" aria-hidden="true">✦</span>
       <span className="floating-doodle doodle-three" aria-hidden="true">♡</span>
+      <PageKeepsakes />
+      <StarScatterLayer />
+      <MemoryMotionLayer />
 
-      <section className="hero-section journal-column">
+      <section id="memory-hero" className="hero-section journal-column">
+        <StickyHand />
         <Reveal>
           <div className="hero-tape" aria-hidden="true" />
+          <FloatingSticker className="hero-sticker hero-sticker-left">✦</FloatingSticker>
+          <FloatingSticker className="hero-sticker hero-sticker-right">♡</FloatingSticker>
           <PaperShape
             preset="folded"
             layoutMode="fill"
@@ -235,7 +185,10 @@ function App() {
             contentAlign="start"
           >
             <div className="hero-inner">
-              <p className="hero-eyebrow">FIRST INTERNSHIP · MEMORY BOOK</p>
+              <div className="hero-eyebrow-row">
+                <p className="hero-eyebrow">FIRST INTERNSHIP · MEMORY BOOK</p>
+                <CraftRibbon tone="butter">纪念页</CraftRibbon>
+              </div>
               <div className="hero-title">
                 <PosterTitle
                   align="left"
@@ -274,20 +227,36 @@ function App() {
                 <i aria-hidden="true" />
                 <span>{journey.hero.endDate}</span>
               </p>
+              <div className="hero-pill-row" aria-label="页面风格标签">
+                <CraftPill tone="apricot" icon="✦" tilt={-2}>239 天</CraftPill>
+                <CraftPill tone="mint" icon="﹏" tilt={1.5} subtle></CraftPill>
+              </div>
+              <HeroMemoryChips />
+              <HeroActionBoard />
               <p className="hero-intro">{journey.hero.intro}</p>
               <p className="hero-sign">写在离开前的这一周</p>
             </div>
           </PaperShape>
         </Reveal>
         <p className="scroll-note">往下翻，是一些想留住的小事 <span aria-hidden="true">↓</span></p>
+        <div className="hero-memory-components" aria-label="实习纪念组件带">
+          <LordiconMotionStrip />
+          <ThoughtBubbleCluster />
+          <PatternSampler />
+        </div>
       </section>
 
-      <section className="journey-section journal-column" aria-labelledby="journey-title">
+      <section id="shared-journey" className="journey-section journal-column" aria-labelledby="journey-title">
         <Reveal>
-          <p className="section-kicker">PART 01 · BEFORE THE LETTERS</p>
-          <h2 id="journey-title">先把一起走过的路，<br />轻轻折在这里。</h2>
-          <p className="section-note">这些节点都可以换成真正属于你们的故事和照片。</p>
+          <SectionHeader
+            kicker="PART 01 · BEFORE THE LETTERS"
+            badge="一起走过"
+            title={<><span id="journey-title">先把一起走过的路，</span><br />轻轻折在这里。</>}
+            note="这些节点都可以换成真正属于你们的故事和照片。"
+          />
         </Reveal>
+        <ScrapbookSupplyRow />
+        <SectionWidgetSprinkles variant="journey" />
 
         <div className="timeline">
           {journey.timeline.map((entry, index) => (
@@ -312,6 +281,7 @@ function App() {
                   <p>{entry.date}</p>
                   <h3>{entry.title}</h3>
                   <span>{entry.note}</span>
+                  <TimelineCardTools index={index} />
                 </article>
               </PaperShape>
             </Reveal>
@@ -321,32 +291,25 @@ function App() {
 
       <DoodleDivider symbol="♡" />
 
-      <section className="letters-section journal-column" aria-labelledby="letters-title">
+      <section id="friend-letters" className="letters-section journal-column" aria-labelledby="letters-title">
         <Reveal>
-          <p className="section-kicker">PART 02 · SIX LETTERS</p>
-          <h2 id="letters-title">有些话，还是想<br />一封一封写给你们。</h2>
-          <p className="section-note">点开名字。六封信都在这里，也都可以被大家看到。</p>
+          <SectionHeader
+            kicker="PART 02 · SIX LETTERS"
+            badge="慢慢拆开"
+            title={<><span id="letters-title">有些话，还是想</span><br />一封一封写给你们。</>}
+            note="点开名字。六封信都在这里，也都可以被大家看到。"
+          />
         </Reveal>
+        <LetterToolRow />
+        <SectionWidgetSprinkles variant="letters" />
+        <LettersStatsPanel />
 
-        <div className="tickets-grid">
-          {journey.friends.map((friend) => (
-            <FriendTicket
-              key={friend.id}
-              friend={friend}
-              active={friend.id === openFriendId}
-              onOpen={() => toggleFriend(friend.id)}
-            />
-          ))}
-        </div>
-
-        {openFriend ? <LetterPanel key={openFriend.id} friend={openFriend} /> : (
-          <p className="letters-hint"><span aria-hidden="true">↑</span> 先挑一封信拆开看看</p>
-        )}
+        <FriendLettersSection friends={journey.friends} />
       </section>
 
       <DoodleDivider symbol="✦" />
 
-      <section className="closing-section journal-column">
+      <section id="closing-note" className="closing-section journal-column">
         <Reveal>
           <PaperShape
             preset="stitched"
@@ -366,13 +329,23 @@ function App() {
             contentAlign="start"
           >
             <div className="closing-note">
-              <p className="section-kicker">LAST PAGE · FOR NOW</p>
+              <div className="section-title-row">
+                <p className="section-kicker">LAST PAGE · FOR NOW</p>
+                <CraftRibbon tone="pink">收好这一页</CraftRibbon>
+              </div>
               <h2>这一页先写到这里。</h2>
               <p>{journey.closing}</p>
+              <ClosingChecklist />
+              <ClosingPatternFooter />
               <span>谢谢你们。以后也要常见面。</span>
             </div>
           </PaperShape>
         </Reveal>
+        <SectionWidgetSprinkles variant="closing" />
+      </section>
+
+      <section className="memory-rail-section journal-column" aria-label="实习纪念时间轴">
+        <CareerJourneyScene />
       </section>
 
       <footer>
@@ -380,7 +353,8 @@ function App() {
         <b aria-hidden="true">♡</b>
         <span>2026.06.05</span>
       </footer>
-    </main>
+      </main>
+    </CraftMotionProvider>
   );
 }
 

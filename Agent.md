@@ -172,8 +172,10 @@ letters, captions, photos, and videos must be replaceable without editing page c
 ## Interaction Rules
 
 - Signature interaction: unfold letters one at a time from the six ticket entries.
-- Use opacity and transform animations only.
-- Keep animations subtle and interruptible.
+- Keep content animations subtle and interruptible. Prefer opacity and transform animations.
+- Allow one desktop-only signature interaction area using requestAnimationFrame for the
+  draggable hand or the closing memory rail. Pause it off-screen and provide a static fallback.
+- Keep animated icons local and decorative. They must not carry meaning without text.
 - Honor `prefers-reduced-motion`.
 - Letter buttons must be native `<button>` elements with `aria-expanded`.
 - Interactive targets must be at least 40 by 40 pixels.
@@ -197,4 +199,3 @@ letters, captions, photos, and videos must be replaceable without editing page c
 - Confirm keyboard operation and visible focus treatment.
 - Confirm placeholder media and optional-video layouts both render correctly.
 - Confirm reduced-motion mode remains fully readable.
-

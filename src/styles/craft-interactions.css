@@ -1,0 +1,309 @@
+.sticky-hand {
+  position: absolute;
+  z-index: 8;
+  top: -58px;
+  left: calc(50% - 50vw);
+  width: 100vw;
+  height: 720px;
+  color: rgba(125, 91, 82, 0.76);
+  pointer-events: none;
+}
+
+.sticky-hand svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  touch-action: none;
+}
+
+.sticky-hand-art {
+  pointer-events: none;
+}
+
+.sticky-hand-rope-outline,
+.sticky-hand-rope,
+.sticky-hand-outline,
+.sticky-hand-fill {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sticky-hand-rope-outline {
+  fill: none;
+  stroke: rgba(106, 78, 73, 0.24);
+  stroke-width: 6;
+}
+
+.sticky-hand-rope {
+  fill: none;
+  stroke: #c9a5a0;
+  stroke-width: 3.5;
+}
+
+.sticky-hand-outline {
+  fill: none;
+  stroke: rgba(106, 78, 73, 0.62);
+  stroke-width: 2.4;
+}
+
+.sticky-hand-fill {
+  fill: #c9a5a0;
+  stroke: none;
+}
+
+.sticky-hand-hit {
+  fill: none;
+  stroke: transparent;
+  pointer-events: all;
+}
+
+.sticky-hand-anchor-hit {
+  cursor: move;
+  fill: transparent;
+}
+
+.sticky-hand-rope-hit {
+  cursor: grab;
+  stroke-width: 25;
+}
+
+.sticky-hand-shape-hit {
+  cursor: grab;
+  fill: transparent;
+  stroke-width: 8;
+}
+
+.sticky-hand-hit:active {
+  cursor: grabbing;
+}
+
+.scroll-progress-mobile {
+  display: none;
+}
+
+.scroll-progress-desktop {
+  position: fixed;
+  z-index: 20;
+  top: 50%;
+  right: max(25px, calc(50% - 510px));
+  width: 34px;
+  height: min(54vh, 410px);
+  transform: translateY(-50%);
+}
+
+.scroll-progress-line,
+.scroll-progress-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 19px;
+  width: 2px;
+  transform-origin: top;
+}
+
+.scroll-progress-line {
+  background: repeating-linear-gradient(180deg, rgba(118, 81, 62, 0.28) 0 5px, transparent 5px 10px);
+}
+
+.scroll-progress-fill {
+  background: repeating-linear-gradient(180deg, rgba(217, 133, 101, 0.85) 0 5px, transparent 5px 10px);
+}
+
+.scroll-progress-node {
+  position: absolute;
+  left: 0;
+  display: flex;
+  min-width: 40px;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: rgba(118, 81, 62, 0.58);
+  background: rgba(255, 250, 242, 0.82);
+  box-shadow: 0 0 0 1px rgba(118, 81, 62, 0.12), 1px 2px 0 rgba(118, 81, 62, 0.08);
+  text-decoration: none;
+  transform: translateY(-50%);
+  transition: color 180ms ease, transform 220ms cubic-bezier(0.16, 1, 0.3, 1), background-color 180ms ease;
+}
+
+.scroll-progress-node span:last-child {
+  position: absolute;
+  right: 43px;
+  min-width: max-content;
+  color: rgba(118, 81, 62, 0.7);
+  font-family: var(--font-ui-hand);
+  font-size: 12px;
+  opacity: 0;
+  transform: translateX(4px);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.scroll-progress-node.is-active,
+.scroll-progress-node:focus-visible {
+  color: #a15f47;
+  background: #fff7e8;
+  transform: translateY(-50%) scale(1.13);
+}
+
+.scroll-progress-node:focus-visible {
+  outline: 3px solid rgba(161, 95, 71, 0.42);
+  outline-offset: 3px;
+}
+
+.memory-rail-section {
+  padding-top: 38px;
+}
+
+.memory-rail {
+  position: relative;
+  padding: 9px 0 3px;
+}
+
+.memory-rail canvas,
+.memory-rail-static {
+  display: block;
+  width: 100%;
+  height: 150px;
+}
+
+.memory-rail canvas {
+  filter: url("#craft-soft-wobble");
+}
+
+.memory-rail-static {
+  display: none;
+  overflow: visible;
+  fill: none;
+  stroke: rgba(118, 81, 62, 0.72);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+}
+
+.memory-rail-static text {
+  fill: var(--ink);
+  stroke: none;
+  font-family: var(--font-ui-hand);
+  font-size: 13px;
+  text-anchor: middle;
+}
+
+.memory-dot-1 { fill: var(--accent-warm); }
+.memory-dot-2 { fill: var(--accent-mint); }
+.memory-dot-3 { fill: var(--accent-sky); }
+.memory-dot-4 { fill: var(--accent-pink); }
+
+.memory-rail p {
+  margin: -8px 0 0;
+  color: rgba(118, 81, 62, 0.62);
+  font-family: var(--font-ui-hand);
+  font-size: 14px;
+  text-align: center;
+}
+
+.career-journey {
+  position: relative;
+  padding: 4px 0 3px;
+}
+
+.career-journey canvas,
+.career-journey-static {
+  display: block;
+  width: 100%;
+  height: 220px;
+}
+
+.career-journey canvas {
+  cursor: crosshair;
+  filter: url("#craft-soft-wobble");
+  touch-action: manipulation;
+}
+
+.career-journey-static {
+  display: none;
+  overflow: visible;
+  fill: none;
+  stroke: rgba(42, 40, 54, 0.62);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.6;
+}
+
+.career-journey-static text {
+  fill: rgba(42, 40, 54, 0.62);
+  stroke: none;
+  font-family: var(--font-meta);
+  font-size: 12px;
+  text-anchor: middle;
+}
+
+.career-journey p {
+  margin: -3px 0 0;
+  color: rgba(118, 81, 62, 0.62);
+  font-family: var(--font-ui-hand);
+  font-size: 14px;
+  text-align: center;
+}
+
+.craft-shape {
+  overflow: visible;
+}
+
+.craft-line {
+  display: block;
+  width: 100%;
+  height: 44px;
+  overflow: visible;
+}
+
+.craft-line.is-animated path {
+  stroke-dasharray: 8 7;
+  animation: craft-line-draw 7s linear infinite;
+}
+
+.craft-motion-float {
+  animation: craft-float 5.4s ease-in-out infinite;
+}
+
+.craft-motion-swing {
+  animation: craft-swing 5.8s ease-in-out infinite;
+  transform-origin: 50% 0;
+}
+
+.craft-motion-spin {
+  animation: craft-spin 12s linear infinite;
+}
+
+.craft-motion-twinkle {
+  animation: craft-twinkle 3.2s ease-in-out infinite;
+}
+
+.craft-cursor-area {
+  position: relative;
+}
+
+.craft-cursor-particle {
+  position: absolute;
+  z-index: 12;
+  color: var(--accent-warm);
+  font-family: var(--font-ui-hand);
+  pointer-events: none;
+  animation: craft-cursor-fade 520ms ease-out forwards;
+}
+
+.craft-theme-panel {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 1px dashed rgba(118, 81, 62, 0.36);
+  border-radius: var(--craft-radius-soft);
+  color: var(--ink);
+  background: rgba(255, 250, 242, 0.8);
+  font-family: var(--font-ui-hand);
+}
+
+.craft-theme-panel label {
+  display: grid;
+  gap: 4px;
+}

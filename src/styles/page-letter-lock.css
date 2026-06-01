@@ -1,0 +1,94 @@
+.letter-password-gate {
+  display: flex;
+  justify-content: center;
+  margin-top: 36px;
+  animation: unfold-letter 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.letter-password-form {
+  display: grid;
+  width: 100%;
+  gap: 14px;
+}
+
+.letter-password-form p {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-ui-hand);
+  font-size: 20px;
+  line-height: 1.55;
+}
+
+.letter-password-form label {
+  display: grid;
+  gap: 7px;
+}
+
+.letter-password-form label span {
+  color: #a56850;
+  font-family: var(--font-meta);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.letter-password-form input {
+  min-height: 42px;
+  border: 1px dashed rgba(118, 81, 62, 0.34);
+  border-radius: 14px 11px 15px 12px;
+  color: var(--ink);
+  background: rgba(255, 250, 242, 0.72);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  font: inherit;
+  padding-inline: 12px;
+}
+
+.letter-password-form input:focus {
+  border-color: rgba(161, 95, 71, 0.62);
+  outline: 3px solid rgba(217, 133, 101, 0.18);
+}
+
+.letter-password-form small {
+  color: #b45d50;
+  font-family: var(--font-ui-hand);
+  font-size: 14px;
+}
+
+.letter-password-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.letter-password-actions button {
+  min-height: 36px;
+  border: 0;
+  border-radius: 999px;
+  color: #fffaf0;
+  background: #a15f47;
+  box-shadow: 1px 2px 0 rgba(118, 81, 62, 0.12);
+  cursor: pointer;
+  font-family: var(--font-ui-hand);
+  font-size: 15px;
+  padding: 7px 14px 8px;
+}
+
+.letter-password-actions button[type="button"] {
+  color: #76513e;
+  background: rgba(220, 236, 226, 0.72);
+}
+
+.letter-password-actions button:active {
+  transform: scale(0.96);
+}
+
+@media (max-width: 680px) {
+  .letter-password-gate {
+    margin-top: 28px;
+  }
+
+  .letter-password-form p {
+    font-size: 18px;
+  }
+}
