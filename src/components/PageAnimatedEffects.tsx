@@ -11,6 +11,15 @@ const LORDICON_ITEMS = [
   { name: 'camera', label: '拍下来', color: '#68a9c6' },
 ] as const;
 
+const POSTMARK_ITEMS = [
+  { title: 'FROM 14F', note: 'first desk', tone: 'warm' },
+  { title: 'LUNCH CLUB', note: 'daily pass', tone: 'mint' },
+  { title: 'AFTER WORK', note: 'keep talking', tone: 'pink' },
+  { title: 'NO. 239', note: 'days together', tone: 'gold' },
+  { title: 'FOR YOU', note: 'open slowly', tone: 'blue' },
+  { title: '06.05 SAVE', note: 'see you soon', tone: 'warm' },
+] as const;
+
 function LordiconGlyph({ name, color }: { name: string; color: string }) {
   if (name === 'chat') {
     return <path d="M11 20h18v12H18l-7 6v-6H6V20h5Zm20-8h21v14h-7v6l-7-6h-7V12Z" />;
@@ -99,6 +108,23 @@ export function MemoryMotionLayer() {
       ))}
       {Array.from({ length: 8 }, (_, index) => (
         <i key={`trail-${index}`} className={`motion-trail motion-trail-${index % 4}`} />
+      ))}
+    </div>
+  );
+}
+
+export function PostmarkDriftLayer() {
+  return (
+    <div className="postmark-drift-layer" aria-hidden="true">
+      {POSTMARK_ITEMS.map((item, index) => (
+        <span
+          key={item.title}
+          className={`postmark-stamp postmark-stamp-${index + 1} postmark-stamp-${item.tone}`}
+        >
+          <i className="postmark-ring" />
+          <b>{item.title}</b>
+          <small>{item.note}</small>
+        </span>
       ))}
     </div>
   );

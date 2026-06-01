@@ -6,6 +6,74 @@
   pointer-events: none;
 }
 
+.postmark-drift-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.postmark-stamp {
+  position: absolute;
+  display: grid;
+  width: 118px;
+  min-height: 118px;
+  place-items: center;
+  align-content: center;
+  gap: 5px;
+  border: 1px dashed rgba(118, 81, 62, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 250, 242, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(255, 250, 242, 0.1);
+  animation: postmark-drift 16s ease-in-out infinite;
+}
+
+.postmark-ring {
+  width: 84px;
+  height: 84px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  opacity: 0.24;
+}
+
+.postmark-stamp b,
+.postmark-stamp small {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: 400;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.postmark-stamp b {
+  top: 42px;
+  font-family: var(--font-meta);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+}
+
+.postmark-stamp small {
+  top: 62px;
+  font-family: var(--font-ui-hand);
+  font-size: 13px;
+  letter-spacing: 0.03em;
+}
+
+.postmark-stamp-warm { color: rgba(161, 95, 71, 0.24); }
+.postmark-stamp-mint { color: rgba(138, 175, 158, 0.24); }
+.postmark-stamp-pink { color: rgba(217, 133, 158, 0.22); }
+.postmark-stamp-gold { color: rgba(196, 154, 76, 0.24); }
+.postmark-stamp-blue { color: rgba(104, 169, 198, 0.22); }
+
+.postmark-stamp-1 { top: 18rem; right: calc(50% - 630px); transform: rotate(-9deg); animation-delay: -1s; }
+.postmark-stamp-2 { top: 54rem; left: calc(50% - 640px); transform: rotate(8deg); animation-delay: -5s; }
+.postmark-stamp-3 { top: 96rem; right: calc(50% - 612px); transform: rotate(-6deg); animation-delay: -9s; }
+.postmark-stamp-4 { top: 134rem; left: calc(50% - 615px); transform: rotate(12deg); animation-delay: -3s; }
+.postmark-stamp-5 { top: 173rem; right: calc(50% - 620px); transform: rotate(-11deg); animation-delay: -11s; }
+.postmark-stamp-6 { top: 224rem; left: calc(50% - 636px); transform: rotate(7deg); animation-delay: -7s; }
+
 .star-scatter {
   position: absolute;
   width: 8px;
@@ -262,4 +330,21 @@
 @keyframes badge-bob {
   0%, 100% { transform: translateY(0) rotate(-2deg); }
   50% { transform: translateY(-8px) rotate(2deg); }
+}
+
+@keyframes postmark-drift {
+  0%, 100% { opacity: 0.4; translate: 0 0; scale: 0.98; }
+  50% { opacity: 0.75; translate: 0 -10px; scale: 1.02; }
+}
+
+@media (max-width: 980px) {
+  .postmark-drift-layer {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .postmark-stamp {
+    animation: none;
+  }
 }

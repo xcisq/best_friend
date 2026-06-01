@@ -1,6 +1,23 @@
 import { CraftLine, CraftPattern, CraftShape } from './craft';
 
 const TIMELINE_LABELS = ['第一天', '变熟了', '小确幸', '快收好', '再见面'];
+const MEMORY_POCKETS = {
+  journey: [
+    { title: '工位旁', note: '14F -> together', tone: 'warm' },
+    { title: '午饭后', note: 'always chatting', tone: 'mint' },
+    { title: '小碎片', note: 'keep it here', tone: 'blue' },
+  ],
+  letters: [
+    { title: '暗号', note: 'open slowly', tone: 'pink' },
+    { title: '回信', note: 'for best friends', tone: 'warm' },
+    { title: '收好', note: 'letter no. 01-06', tone: 'mint' },
+  ],
+  closing: [
+    { title: '夹回去', note: 'last page for now', tone: 'blue' },
+    { title: '常见面', note: 'after 06.05', tone: 'pink' },
+    { title: '下次写', note: 'next chapter', tone: 'warm' },
+  ],
+} as const;
 
 export function HeroActionBoard() {
   return (
@@ -96,6 +113,27 @@ export function ClosingPatternFooter() {
       <CraftLine type="wave" length={180} height={28} frequency={5} strokeColor="#a15f47" strokeWidth={1.4} seed={99} />
       <span>10.10 入职 · 06.05 收尾 · 慢慢再见面</span>
       <CraftLine type="wave" length={180} height={28} frequency={5} strokeColor="#8aaf9e" strokeWidth={1.4} seed={107} />
+    </div>
+  );
+}
+
+export function MemoryPocketCluster({
+  variant,
+}: {
+  variant: keyof typeof MEMORY_POCKETS;
+}) {
+  return (
+    <div className={`memory-pocket-cluster memory-pocket-cluster-${variant}`} aria-hidden="true">
+      {MEMORY_POCKETS[variant].map((item, index) => (
+        <span
+          key={`${variant}-${item.title}`}
+          className={`memory-pocket-card memory-pocket-card-${item.tone} memory-pocket-card-${index + 1}`}
+        >
+          <small>keepsake</small>
+          <b>{item.title}</b>
+          <em>{item.note}</em>
+        </span>
+      ))}
     </div>
   );
 }

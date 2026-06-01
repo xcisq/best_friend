@@ -5,13 +5,20 @@ import {
   type ReactNode,
 } from 'react';
 import { PaperShape } from './components/paper-shape';
-import { LordiconMotionStrip, MemoryMotionLayer, StarScatterLayer, ThoughtBubbleCluster } from './components/PageAnimatedEffects';
+import {
+  LordiconMotionStrip,
+  MemoryMotionLayer,
+  PostmarkDriftLayer,
+  StarScatterLayer,
+  ThoughtBubbleCluster,
+} from './components/PageAnimatedEffects';
 import { FriendLettersSection } from './components/FriendLettersSection';
 import { SectionWidgetSprinkles } from './components/SectionWidgetSprinkles';
 import {
   ClosingPatternFooter,
   HeroActionBoard,
   LettersStatsPanel,
+  MemoryPocketCluster,
   PatternSampler,
   TimelineCardTools,
 } from './components/PageCraftComponents';
@@ -159,6 +166,7 @@ function App() {
       <PageKeepsakes />
       <StarScatterLayer />
       <MemoryMotionLayer />
+      <PostmarkDriftLayer />
 
       <section id="memory-hero" className="hero-section journal-column">
         <StickyHand />
@@ -229,7 +237,7 @@ function App() {
               </p>
               <div className="hero-pill-row" aria-label="页面风格标签">
                 <CraftPill tone="apricot" icon="✦" tilt={-2}>239 天</CraftPill>
-                <CraftPill tone="mint" icon="﹏" tilt={1.5} subtle></CraftPill>
+                <CraftPill tone="mint" icon="﹏" tilt={1.5} subtle>慢慢翻</CraftPill>
               </div>
               <HeroMemoryChips />
               <HeroActionBoard />
@@ -257,6 +265,7 @@ function App() {
         </Reveal>
         <ScrapbookSupplyRow />
         <SectionWidgetSprinkles variant="journey" />
+        <MemoryPocketCluster variant="journey" />
 
         <div className="timeline">
           {journey.timeline.map((entry, index) => (
@@ -303,6 +312,7 @@ function App() {
         <LetterToolRow />
         <SectionWidgetSprinkles variant="letters" />
         <LettersStatsPanel />
+        <MemoryPocketCluster variant="letters" />
 
         <FriendLettersSection friends={journey.friends} />
       </section>
@@ -336,6 +346,7 @@ function App() {
               <h2>这一页先写到这里。</h2>
               <p>{journey.closing}</p>
               <ClosingChecklist />
+              <MemoryPocketCluster variant="closing" />
               <ClosingPatternFooter />
               <span>谢谢你们。以后也要常见面。</span>
             </div>

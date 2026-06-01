@@ -200,6 +200,28 @@
     min-height: 86px;
   }
 
+  .memory-pocket-cluster {
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .memory-pocket-cluster-letters {
+    justify-content: flex-start;
+  }
+
+  .memory-pocket-card {
+    min-width: 96px;
+    padding: 10px 11px 11px;
+  }
+
+  .memory-pocket-card b {
+    font-size: 16px;
+  }
+
+  .memory-pocket-card em {
+    font-size: 12px;
+  }
+
   .timeline-entry {
     width: calc(100% - 37px);
     margin-left: 37px;
@@ -314,6 +336,7 @@
   }
 
   .page-keepsake,
+  .memory-pocket-card,
   .star-scatter,
   .hero-memory-chips span,
   .supply-chip,
