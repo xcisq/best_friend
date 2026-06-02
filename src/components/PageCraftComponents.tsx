@@ -1,4 +1,4 @@
-import { CraftLine, CraftPattern, CraftShape } from './craft';
+import { CraftLine, CraftPattern } from './craft';
 
 const TIMELINE_LABELS = ['初识', '熟悉', '相伴', '惦念', '珍藏'];
 const FOOD_MEMORIES = [
@@ -111,18 +111,15 @@ export function TimelineCardTools({ index }: { index: number }) {
 export function LettersStatsPanel() {
   return (
     <div className="letters-stats-panel" aria-label="六封信组件摘要">
-      <div className="letters-stats-item">
-        <CraftShape type="star" width={54} height={54} seed={33} fillColor="rgba(244, 223, 220, 0.7)" idleMotion="twinkle" />
+      <div className="letters-stats-item letters-stats-item-check">
         <b>6</b>
         <span>封信慢慢拆</span>
       </div>
-      <div className="letters-stats-item">
-        <CraftShape type="blob" width={62} height={50} seed={42} fillColor="rgba(220, 236, 226, 0.78)" idleMotion="float" />
+      <div className="letters-stats-item letters-stats-item-dots">
         <b>∞</b>
-        <span>个称呼都算数</span>
+        <span>个未来</span>
       </div>
-      <div className="letters-stats-item">
-        <CraftShape type="ellipse" width={64} height={44} seed={54} fillColor="rgba(247, 232, 184, 0.76)" idleMotion="swing" />
+      <div className="letters-stats-item letters-stats-item-stars">
         <b>1</b>
         <span>本纪念手帐</span>
       </div>

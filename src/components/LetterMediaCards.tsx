@@ -22,7 +22,6 @@ export function PhotoSlot({
           onClick={onOpen}
           aria-label={`放大查看照片：${photo.caption ?? photo.alt}`}
         >
-          <span className="photo-slot-frame" aria-hidden="true" />
           <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" width="720" height="520" />
           <span className="photo-slot-zoom">点击放大</span>
         </button>

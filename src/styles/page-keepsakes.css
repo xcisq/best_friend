@@ -364,47 +364,77 @@
 
 .letters-stats-panel {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 150px));
+  grid-template-columns: repeat(3, minmax(0, 168px));
   justify-content: center;
-  gap: 13px;
+  gap: 16px;
   margin: 24px auto 0;
 }
 
 .letters-stats-item {
   position: relative;
-  display: grid;
-  min-height: 116px;
-  place-items: center;
-  padding: 14px 10px 12px;
+  display: flex;
+  min-height: 60px;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 18px 12px 20px;
+  clip-path: polygon(0 8%, 97% 0, 100% 88%, 3% 100%);
   color: var(--ink);
-  isolation: isolate;
+  box-shadow: 1px 3px 0 rgba(118, 81, 62, 0.08);
 }
 
-.letters-stats-item .craft-shape {
+.letters-stats-item-check {
+  background:
+    linear-gradient(45deg, rgba(255, 250, 242, 0.24) 25%, transparent 25%, transparent 75%, rgba(255, 250, 242, 0.24) 75%),
+    linear-gradient(45deg, rgba(255, 250, 242, 0.24) 25%, transparent 25%, transparent 75%, rgba(255, 250, 242, 0.24) 75%),
+    rgba(239, 156, 155, 0.4);
+  background-position: 0 0, 7px 7px;
+  background-size: 14px 14px;
+  transform: rotate(-1.2deg);
+}
+
+.letters-stats-item-dots {
+  background:
+    radial-gradient(circle, rgba(255, 244, 202, 0.78) 0 2px, transparent 2.4px) 0 0 / 14px 14px,
+    rgba(173, 109, 145, 0.4);
+  clip-path: polygon(5% 0, 94% 4%, 100% 50%, 94% 96%, 5% 100%, 0 52%);
+  transform: rotate(0.8deg);
+}
+
+.letters-stats-item-stars {
+  overflow: hidden;
+  background:
+    radial-gradient(circle, rgba(196, 154, 76, 0.68) 0 2px, transparent 2.4px) 3px 3px / 18px 18px,
+    rgba(153, 190, 177, 0.38);
+  clip-path: polygon(2% 7%, 98% 0, 100% 90%, 0 100%);
+  transform: rotate(-1deg);
+}
+
+.letters-stats-item-stars::before {
   position: absolute;
-  z-index: -1;
-  inset: 12px auto auto 50%;
-  transform: translateX(-50%);
+  inset: 4px 7px;
+  color: rgba(73, 132, 121, 0.36);
+  content: "✦  ★  ✦  ★  ✦  ★";
+  font-size: 10px;
+  letter-spacing: 7px;
+  line-height: 2.4;
+  pointer-events: none;
 }
 
 .letters-stats-item b {
-  position: absolute;
-  top: 24px;
-  left: 50%;
-  color: #a15f47;
+  position: relative;
+  color: rgba(118, 81, 62, 0.88);
   font-family: var(--font-display);
-  font-size: 34px;
+  font-size: 31px;
   font-weight: 400;
   line-height: 1;
-  transform: translateX(-50%);
 }
 
 .letters-stats-item span {
-  color: rgba(118, 81, 62, 0.68);
-  font-family: var(--font-meta);
-  font-size: 9px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  position: relative;
+  color: rgba(88, 61, 48, 0.78);
+  font-family: var(--font-ui-hand);
+  font-size: 15px;
+  letter-spacing: 0.02em;
 }
 
 .closing-pattern-footer {
