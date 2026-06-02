@@ -5,6 +5,67 @@
   animation: unfold-letter 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+.letter-reset-layer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin: 28px auto 0;
+  width: min(100%, 820px);
+  padding: 14px 16px;
+  border: 1px dashed rgba(118, 81, 62, 0.2);
+  border-radius: 18px 14px 17px 12px;
+  background: rgba(255, 250, 242, 0.72);
+  box-shadow: 1px 2px 0 rgba(118, 81, 62, 0.08);
+}
+
+.letter-reset-copy {
+  display: grid;
+  gap: 4px;
+}
+
+.letter-reset-copy p,
+.letter-reset-copy small {
+  margin: 0;
+}
+
+.letter-reset-copy p {
+  color: var(--ink);
+  font-family: var(--font-ui-hand);
+  font-size: 17px;
+}
+
+.letter-reset-copy small {
+  color: rgba(118, 81, 62, 0.66);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.letter-reset-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.letter-reset-actions button {
+  min-height: 36px;
+  border: 0;
+  border-radius: 999px;
+  color: #fffaf0;
+  background: #a15f47;
+  box-shadow: 1px 2px 0 rgba(118, 81, 62, 0.12);
+  cursor: pointer;
+  font-family: var(--font-ui-hand);
+  font-size: 15px;
+  padding: 7px 14px 8px;
+}
+
+.letter-reset-actions .is-ghost {
+  color: #76513e;
+  background: rgba(220, 236, 226, 0.72);
+}
+
 .letter-password-form {
   display: grid;
   width: 100%;
@@ -84,6 +145,15 @@
 }
 
 @media (max-width: 680px) {
+  .letter-reset-layer {
+    margin-top: 22px;
+    padding: 12px 13px;
+  }
+
+  .letter-reset-copy p {
+    font-size: 16px;
+  }
+
   .letter-password-gate {
     margin-top: 28px;
   }

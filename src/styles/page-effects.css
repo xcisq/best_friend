@@ -23,6 +23,102 @@
   pointer-events: none;
 }
 
+.foreground-surprise-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 24;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.foreground-paper-plane {
+  position: absolute;
+  top: var(--plane-top);
+  display: block;
+  width: 190px;
+  height: 76px;
+  color: rgba(161, 95, 71, 0.78);
+  filter: drop-shadow(2px 4px 1px rgba(118, 81, 62, 0.12));
+}
+
+.foreground-paper-plane i {
+  position: absolute;
+  top: 4px;
+  display: block;
+  width: 64px;
+  height: 64px;
+}
+
+.foreground-paper-plane svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.foreground-paper-plane path {
+  fill: rgba(255, 250, 242, 0.94);
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.foreground-paper-plane b {
+  position: absolute;
+  top: 39px;
+  width: 126px;
+  height: 1px;
+  background: repeating-linear-gradient(90deg, rgba(161, 95, 71, 0.48) 0 8px, transparent 8px 16px);
+}
+
+.foreground-paper-plane-right {
+  left: -220px;
+  animation: foreground-plane-fly-right 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.foreground-paper-plane-right i {
+  right: 0;
+}
+
+.foreground-paper-plane-right b {
+  left: 0;
+  transform: rotate(-5deg);
+}
+
+.foreground-paper-plane-left {
+  right: -220px;
+  animation: foreground-plane-fly-left 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.foreground-paper-plane-left i {
+  left: 0;
+  transform: scaleX(-1);
+}
+
+.foreground-paper-plane-left b {
+  right: 0;
+  transform: rotate(5deg);
+}
+
+.click-scatter-star {
+  position: absolute;
+  top: var(--star-y);
+  left: var(--star-x);
+  display: block;
+  width: var(--star-size);
+  height: var(--star-size);
+  color: var(--star-color);
+  animation: click-star-scatter 780ms cubic-bezier(0.16, 0.82, 0.35, 1) var(--star-delay) both;
+}
+
+.click-scatter-star::before {
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  clip-path: polygon(50% 0, 61% 36%, 100% 50%, 61% 64%, 50% 100%, 39% 64%, 0 50%, 39% 36%);
+  content: "";
+}
+
 .postmark-stamp {
   position: absolute;
   display: grid;
@@ -456,6 +552,34 @@
   50% { transform: scale(1.18) rotate(32deg); opacity: 0.74; }
 }
 
+@keyframes foreground-plane-fly-right {
+  0% { opacity: 0; transform: translate3d(0, 18px, 0) rotate(-6deg); }
+  12% { opacity: 0.96; }
+  55% { transform: translate3d(calc(56vw + 110px), -16px, 0) rotate(4deg); }
+  100% { opacity: 0; transform: translate3d(calc(100vw + 440px), -42px, 0) rotate(-2deg); }
+}
+
+@keyframes foreground-plane-fly-left {
+  0% { opacity: 0; transform: translate3d(0, 12px, 0) rotate(5deg); }
+  12% { opacity: 0.96; }
+  54% { transform: translate3d(calc(-55vw - 110px), -18px, 0) rotate(-4deg); }
+  100% { opacity: 0; transform: translate3d(calc(-100vw - 440px), -46px, 0) rotate(2deg); }
+}
+
+@keyframes click-star-scatter {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(var(--star-rotation)) translateX(0) scale(0.35);
+  }
+  18% {
+    opacity: 0.96;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(var(--star-rotation)) translateX(var(--star-distance)) translateY(18px) scale(1.12);
+  }
+}
+
 @media (max-width: 980px) {
   .postmark-drift-layer {
     display: none;
@@ -469,7 +593,13 @@
 @media (prefers-reduced-motion: reduce) {
   .postmark-stamp,
   .paper-plane,
-  .tiny-wish-star {
+  .tiny-wish-star,
+  .foreground-paper-plane,
+  .click-scatter-star {
     animation: none;
+  }
+
+  .foreground-surprise-layer {
+    display: none;
   }
 }

@@ -8,6 +8,7 @@ import { PaperShape } from './components/paper-shape';
 import {
   LordiconMotionStrip,
   MemoryMotionLayer,
+  ForegroundSurpriseLayer,
   PaperPlaneTrailLayer,
   PostmarkDriftLayer,
   StarScatterLayer,
@@ -173,6 +174,7 @@ function App() {
       <MemoryMotionLayer />
       <PostmarkDriftLayer />
       <PaperPlaneTrailLayer />
+      <ForegroundSurpriseLayer />
 
       <section id="memory-hero" className="hero-section journal-column">
         <StickyHand />

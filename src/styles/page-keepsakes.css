@@ -388,12 +388,15 @@
 }
 
 .letters-stats-item b {
-  margin-top: 18px;
+  position: absolute;
+  top: 24px;
+  left: 50%;
   color: #a15f47;
   font-family: var(--font-display);
   font-size: 34px;
   font-weight: 400;
   line-height: 1;
+  transform: translateX(-50%);
 }
 
 .letters-stats-item span {

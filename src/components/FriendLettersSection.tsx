@@ -9,13 +9,15 @@ import {
 } from 'react';
 import { AnimatedIcon } from './craft';
 import { CraftPill } from './journal-ui';
+import { PhotoSlot, VideoCard } from './LetterMediaCards';
+import { LetterPhotoLightbox } from './LetterPhotoLightbox';
 import { PaperShape } from './paper-shape';
 import {
   createDecoration,
   type DecorationItem,
   type DecorationType,
 } from './paper-shape/decorations';
-import type { FriendLetter, MediaAsset } from '../content/journey';
+import type { FriendLetter } from '../content/journey';
 
 const INK = '#76513e';
 
@@ -51,42 +53,6 @@ const LETTER_DECORATIONS: Record<string, DecorationItem[]> = {
   zhaobin: [decoration('zhaobin-tape', 'washi-tape', 'stars-yellow', 90, -10, 4, 1.03)],
   tianyue: [decoration('tianyue-staple', 'staple', 'gold', 58, -8, 6, 1)],
 };
-
-function PhotoSlot({ photo, index }: { photo: MediaAsset; index: number }) {
-  return (
-    <figure className={`photo-slot photo-slot-${(index % 3) + 1}`}>
-      <div className="photo-tape" aria-hidden="true" />
-      {photo.src ? (
-        <img src={photo.src} alt={photo.alt} loading="lazy" width="720" height="520" />
-      ) : (
-        <div className="photo-placeholder" role="img" aria-label={photo.alt}>
-          <span aria-hidden="true">＋</span>
-          <small>{photo.caption ?? '这里放一张照片'}</small>
-        </div>
-      )}
-      {photo.caption && <figcaption>{photo.caption}</figcaption>}
-    </figure>
-  );
-}
-
-function VideoCard({ video }: { video: MediaAsset }) {
-  return (
-    <div className="video-card">
-      <p className="video-label">一段会动的回忆 <span aria-hidden="true">▶</span></p>
-      {video.src ? (
-        <video controls preload="metadata" poster={video.poster} aria-label={video.alt}>
-          <source src={video.src} />
-          你的浏览器暂时无法播放这个视频。
-        </video>
-      ) : (
-        <div className="video-placeholder">
-          <span aria-hidden="true">▷</span>
-          <small>{video.caption ?? '这里可以放一段短视频'}</small>
-        </div>
-      )}
-    </div>
-  );
-}
 
 function FriendTicket({
   friend,
@@ -198,14 +164,40 @@ function LetterPasswordGate({
   );
 }
 
+function LetterResetLayer({
+  mode,
+  friendName,
+  onReload,
+}: {
+  mode: 'pending' | 'open';
+  friendName: string;
+  onReload: () => void;
+}) {
+  return (
+    <div className="letter-reset-layer" role="note" aria-label="切换下一位查看前的重置操作">
+      <div className="letter-reset-copy">
+        <p>{mode === 'open' ? `正在查看写给 ${friendName} 的信。` : `正在核对写给 ${friendName} 的暗号。`}</p>
+
+      </div>
+      <div className="letter-reset-actions">
+        <button type="button" className="is-ghost" onClick={onReload}>整页刷新</button>
+      </div>
+    </div>
+  );
+}
+
 function LetterPanel({
   friend,
   panelRef,
   onKeyDown,
+  onPhotoOpen,
+  photoButtonRef,
 }: {
   friend: FriendLetter;
   panelRef: RefObject<HTMLDivElement>;
   onKeyDown: (event: KeyboardEvent<HTMLDivElement>) => void;
+  onPhotoOpen: (index: number) => void;
+  photoButtonRef: (index: number, node: HTMLButtonElement | null) => void;
 }) {
   return (
     <div
@@ -243,7 +235,13 @@ function LetterPanel({
           <p className="letter-message">{friend.message}</p>
           <div className="photo-collage">
             {friend.photos.map((photo, index) => (
-              <PhotoSlot key={`${friend.id}-photo-${index}`} photo={photo} index={index} />
+              <PhotoSlot
+                key={`${friend.id}-photo-${index}`}
+                photo={photo}
+                index={index}
+                onOpen={() => onPhotoOpen(index)}
+                buttonRef={(node) => photoButtonRef(index, node)}
+              />
             ))}
           </div>
           {friend.video && <VideoCard video={friend.video} />}
@@ -256,9 +254,11 @@ function LetterPanel({
 export function FriendLettersSection({ friends }: { friends: FriendLetter[] }) {
   const [openFriendId, setOpenFriendId] = useState<string | null>(null);
   const [pendingFriendId, setPendingFriendId] = useState<string | null>(null);
+  const [activePhotoIndex, setActivePhotoIndex] = useState<number | null>(null);
   const [passwordValue, setPasswordValue] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const ticketRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const photoButtonRefs = useRef<Record<string, HTMLButtonElement | null>>({});
   const letterPanelRef = useRef<HTMLDivElement>(null);
   const passwordInputRef = useRef<HTMLInputElement>(null);
   const openFriend = friends.find((friend) => friend.id === openFriendId);
@@ -280,10 +280,20 @@ export function FriendLettersSection({ friends }: { friends: FriendLetter[] }) {
     return () => cancelAnimationFrame(frame);
   }, [pendingFriendId]);
 
+  const resetLetterState = (focusFriendId?: string | null) => {
+    setOpenFriendId(null);
+    setPendingFriendId(null);
+    setActivePhotoIndex(null);
+    setPasswordValue('');
+    setPasswordError('');
+    if (focusFriendId) {
+      requestAnimationFrame(() => focusTicket(focusFriendId));
+    }
+  };
+
   const toggleFriend = (friendId: string) => {
     if (openFriendId === friendId) {
-      setOpenFriendId(null);
-      setPendingFriendId(null);
+      resetLetterState(friendId);
       return;
     }
     setOpenFriendId(null);
@@ -326,15 +336,11 @@ export function FriendLettersSection({ friends }: { friends: FriendLetter[] }) {
     }
     if (event.key === 'Escape' && openFriendId) {
       event.preventDefault();
-      setOpenFriendId(null);
-      focusTicket(friendId);
+      resetLetterState(friendId);
     }
     if (event.key === 'Escape' && pendingFriendId) {
       event.preventDefault();
-      setPendingFriendId(null);
-      setPasswordValue('');
-      setPasswordError('');
-      focusTicket(friendId);
+      resetLetterState(friendId);
     }
   };
 
@@ -358,18 +364,22 @@ export function FriendLettersSection({ friends }: { friends: FriendLetter[] }) {
 
   const cancelPasswordGate = () => {
     const closingFriendId = pendingFriendId;
-    setPendingFriendId(null);
-    setPasswordValue('');
-    setPasswordError('');
-    if (closingFriendId) requestAnimationFrame(() => focusTicket(closingFriendId));
+    resetLetterState(closingFriendId);
   };
 
   const handleLetterKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key !== 'Escape' || !openFriendId) return;
     event.preventDefault();
-    const closingFriendId = openFriendId;
-    setOpenFriendId(null);
-    requestAnimationFrame(() => focusTicket(closingFriendId));
+    resetLetterState(openFriendId);
+  };
+
+  const closePhotoPreview = () => {
+    if (!openFriendId || activePhotoIndex === null) return;
+    const buttonKey = `${openFriendId}-${activePhotoIndex}`;
+    setActivePhotoIndex(null);
+    requestAnimationFrame(() => {
+      photoButtonRefs.current[buttonKey]?.focus();
+    });
   };
 
   return (
@@ -398,6 +408,14 @@ export function FriendLettersSection({ friends }: { friends: FriendLetter[] }) {
             : '当前没有展开的信。'}
       </p>
 
+      {(pendingFriend || openFriend) && (
+        <LetterResetLayer
+          mode={openFriend ? 'open' : 'pending'}
+          friendName={openFriend?.name ?? pendingFriend?.name ?? 'TA'}
+          onReload={() => window.location.reload()}
+        />
+      )}
+
       {pendingFriend ? (
         <LetterPasswordGate
           friend={pendingFriend}
@@ -417,11 +435,23 @@ export function FriendLettersSection({ friends }: { friends: FriendLetter[] }) {
           friend={openFriend}
           panelRef={letterPanelRef}
           onKeyDown={handleLetterKeyDown}
+          onPhotoOpen={setActivePhotoIndex}
+          photoButtonRef={(index, node) => {
+            photoButtonRefs.current[`${openFriend.id}-${index}`] = node;
+          }}
         />
       ) : (
         <div className="letters-empty">
           <CraftPill tone="butter" icon="↑" tilt={-2}>先挑一封信拆开看看</CraftPill>
         </div>
+      )}
+
+      {openFriend && activePhotoIndex !== null && openFriend.photos[activePhotoIndex] && (
+        <LetterPhotoLightbox
+          photo={openFriend.photos[activePhotoIndex]}
+          friendName={openFriend.name}
+          onClose={closePhotoPreview}
+        />
       )}
     </>
   );

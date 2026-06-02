@@ -1,35 +1,39 @@
 import { CraftLine, CraftPattern, CraftShape } from './craft';
 
-const TIMELINE_LABELS = ['初识', '换工位', '团建', '百里山水', '九色云'];
+const TIMELINE_LABELS = ['初识', '熟悉', '相伴', '惦念', '珍藏'];
 const FOOD_MEMORIES = [
   { title: '九色云', note: '美食局 01' },
   { title: '肥姨妈', note: '美食局 02' },
-  { title: '盒马', note: '美食局 03' },
+  { title: '辣犟', note: '美食局 03' },
   { title: '陶陶居', note: '美食局 04' },
 ] as const;
 const NICKNAME_MEMORIES = [
-  { title: '天岳', note: '大文豪本人' },
-  { title: '姑姑', note: '唱 Coco' },
-  { title: '师傅', note: '星盘 time' },
-  { title: '男妈妈', note: 'super reliable' },
+  { title: '小姑姑', note: '鸽我' },
+  { title: '大姑姑', note: '如上，不用多解释了吧' },
+  { title: '男妈妈', note: 'YYDS' },
+  { title: '大文豪', note: '月明星稀' },
+  { title: '师傅', note: '全能！' },
 ] as const;
 const LITTLE_CHARMS = [
-  { icon: '✈', title: '纸飞机', note: '把话送到你手里' },
-  { icon: '✦', title: '小星星', note: '给每一封信发光' },
-  { icon: '♡', title: '贴纸心', note: '先替我抱一下' },
+  { icon: '✈', title: '纸飞机', note: '把心里话寄出去' },
+  { icon: '✦', title: '小星星', note: '给回忆轻轻发光' },
+  { icon: '♡', title: '贴纸心', note: '把舍不得贴好' },
   { icon: '﹏', title: '慢慢翻', note: '别一下子看完' },
 ] as const;
 
 const MEMORY_POCKETS = {
   journey: [
-    { title: '换工位', note: 'from stranger', tone: 'warm' },
-    { title: '唱 Coco', note: '和姑姑合唱', tone: 'mint' },
-    { title: '美食局', note: '九色云 / 盒马', tone: 'pink' },
+    { title: '一起露营', note: 'under the sky', tone: 'warm' },
+    { title: '一起唱歌', note: 'coco,guitar', tone: 'mint' },
+    { title: '美食局', note: '九色云 / 肥姨妈', tone: 'pink' },
   ],
   letters: [
-    { title: '男妈妈', note: 'super reliable', tone: 'pink' },
-    { title: '姑姑', note: '小棉袄', tone: 'warm' },
-    { title: '天岳', note: '大文豪本人', tone: 'mint' },
+    { title: '男妈妈', note: 'YYDS', tone: 'pink' },
+    { title: '小姑姑', note: '鸽我', tone: 'warm' },
+    { title: '大姑姑', note: '再鸽！', tone: 'mint' },
+    { title: '师傅', note: '全能！', tone: 'blue' },
+    { title: '晓朋', note: '佳佳嘻嘻', tone: 'pink' },
+    { title: '天岳', note: '大文豪', tone: 'warm' },
   ],
   closing: [
     { title: '常联系', note: 'after 06.05', tone: 'blue' },
@@ -159,7 +163,7 @@ export function MemoryEventStickerStrip() {
       </section>
       <section className="memory-category-card memory-category-nickname" aria-label="称呼回忆">
         <p>NICKNAME NOTE</p>
-        <h3>这些称呼都有主人</h3>
+        <h3>一些神奇的称呼</h3>
         <div className="memory-nickname-list">
           {NICKNAME_MEMORIES.map((item) => (
             <span key={item.title}>
