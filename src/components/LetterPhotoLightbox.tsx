@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import type { MediaAsset } from '../content/journey';
 
 export function LetterPhotoLightbox({
@@ -33,7 +34,7 @@ export function LetterPhotoLightbox({
     };
   }, [onClose]);
 
-  return (
+  return createPortal(
     <div className="letter-photo-lightbox" role="dialog" aria-modal="true" aria-label={`查看 ${friendName} 的照片`}>
       <button
         type="button"
@@ -61,6 +62,7 @@ export function LetterPhotoLightbox({
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
