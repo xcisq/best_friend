@@ -220,9 +220,9 @@ function LetterPanel({
       <PaperShape
         preset={friend.paperPreset}
         layoutMode="fill"
-        width={720}
-        minHeight={420}
-        maxWidth={760}
+        width={780}
+        minHeight={560}
+        maxWidth={820}
         paperColor="cloud"
         strokeColor={INK}
         strokeWidth={1.6}
@@ -232,7 +232,7 @@ function LetterPanel({
         patternParams={{ patternColor: friend.accent, patternOpacity: 0.1, lineGap: 28 }}
         shapeParams={{ shadowOpacity: 0.2, edgeWobble: 1.1 }}
         decorations={LETTER_DECORATIONS[friend.id]}
-        contentPadding={{ all: 24, top: 32, bottom: 30 }}
+        contentPadding={{ all: 28, top: 36, bottom: 40 }}
         contentAlign="start"
       >
         <article className="letter-content" style={{ '--friend-accent': friend.accent } as CSSProperties}>

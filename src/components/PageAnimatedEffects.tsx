@@ -1,23 +1,29 @@
 const LORDICON_ITEMS = [
-  { name: 'badge', label: '第一天', color: '#a15f47' },
-  { name: 'chat', label: '常聊天', color: '#8aaf9e' },
-  { name: 'note', label: '小便签', color: '#76513e' },
-  { name: 'folder', label: '存回忆', color: '#c89a4c' },
-  { name: 'coffee', label: '午饭后', color: '#d98565' },
-  { name: 'pencil', label: '写给你', color: '#9b7ab4' },
+  { name: 'badge', label: '初识', color: '#a15f47' },
+  { name: 'chat', label: '姑姑', color: '#8aaf9e' },
+  { name: 'note', label: '师傅', color: '#76513e' },
+  { name: 'folder', label: '团建', color: '#c89a4c' },
+  { name: 'coffee', label: '美食局', color: '#d98565' },
+  { name: 'pencil', label: '天岳', color: '#9b7ab4' },
   { name: 'calendar', label: '10.10', color: '#8aaf9e' },
-  { name: 'desk', label: '工位边', color: '#76513e' },
-  { name: 'heart', label: '想念值', color: '#d98565' },
-  { name: 'camera', label: '拍下来', color: '#68a9c6' },
+  { name: 'desk', label: '换工位', color: '#76513e' },
+  { name: 'heart', label: '男妈妈', color: '#d98565' },
+  { name: 'camera', label: '陶陶居', color: '#c89a4c' },
 ] as const;
 
 const POSTMARK_ITEMS = [
-  { title: 'FROM 14F', note: 'first desk', tone: 'warm' },
-  { title: 'LUNCH CLUB', note: 'daily pass', tone: 'mint' },
-  { title: 'AFTER WORK', note: 'keep talking', tone: 'pink' },
-  { title: 'NO. 239', note: 'days together', tone: 'gold' },
-  { title: 'FOR YOU', note: 'open slowly', tone: 'blue' },
-  { title: '06.05 SAVE', note: 'see you soon', tone: 'warm' },
+  { title: 'FIRST MEET', note: '初识', tone: 'warm' },
+  { title: 'NEW DESK', note: '换工位', tone: 'mint' },
+  { title: 'SING COCO', note: '和姑姑合唱', tone: 'pink' },
+  { title: 'TEAM DAY', note: '团建', tone: 'gold' },
+  { title: 'FOOD MEMO', note: '九色云 / 盒马', tone: 'gold' },
+  { title: 'KEEP IN TOUCH', note: '常联系', tone: 'warm' },
+] as const;
+
+const PAPER_PLANES = [
+  { label: 'to letters', trail: 'plane-trail-one' },
+  { label: 'to next page', trail: 'plane-trail-two' },
+  { label: 'to memory', trail: 'plane-trail-three' },
 ] as const;
 
 function LordiconGlyph({ name, color }: { name: string; color: string }) {
@@ -57,7 +63,7 @@ function LordiconGlyph({ name, color }: { name: string; color: string }) {
 export function LordiconMotionStrip() {
   return (
     <div className="lordicon-motion-strip" aria-label="实习纪念动图标组件">
-      <p>239 天里反复出现的小图标</p>
+      <p>239 天里反复出现的小暗号</p>
       <div>
         {LORDICON_ITEMS.map((item, index) => (
           <span key={item.name} className={`lordicon-motion lordicon-motion-${index + 1}`} title={item.label}>
@@ -80,12 +86,12 @@ export function ThoughtBubbleCluster() {
       <span className="thought-bubble thought-bubble-small" />
       <span className="thought-bubble thought-bubble-mid" />
       <div className="thought-bubble thought-bubble-main">
-        <span>想到你们，就会冒出好多小气泡</span>
+        <span>想到这些事，就会冒出好多小气泡</span>
       </div>
-      <b className="bubble-badge bubble-badge-green">午饭</b>
+      <b className="bubble-badge bubble-badge-green">唱歌</b>
       <b className="bubble-badge bubble-badge-pink">工位</b>
-      <b className="bubble-badge bubble-badge-orange">下班</b>
-      <b className="bubble-badge bubble-badge-blue">六封信</b>
+      <b className="bubble-badge bubble-badge-orange">团建</b>
+      <b className="bubble-badge bubble-badge-blue">美食</b>
     </div>
   );
 }
@@ -93,8 +99,36 @@ export function ThoughtBubbleCluster() {
 export function StarScatterLayer() {
   return (
     <div className="star-scatter-layer" aria-hidden="true">
-      {Array.from({ length: 26 }, (_, index) => (
+      {Array.from({ length: 34 }, (_, index) => (
         <span key={index} className={`star-scatter star-scatter-${index % 7}`} />
+      ))}
+    </div>
+  );
+}
+
+export function PaperPlaneTrailLayer() {
+  return (
+    <div className="paper-plane-trail-layer" aria-hidden="true">
+      {PAPER_PLANES.map((item, index) => (
+        <span key={item.label} className={`paper-plane-path ${item.trail}`}>
+          <i className={`paper-plane paper-plane-${index + 1}`}>
+            <svg viewBox="0 0 64 64">
+              <path d="M7 30 55 10 42 54 31 38 18 47l6-14L7 30Z" />
+              <path d="M24 33 55 10 31 38" />
+            </svg>
+          </i>
+          <b />
+        </span>
+      ))}
+    </div>
+  );
+}
+
+export function TinyWishStarsLayer() {
+  return (
+    <div className="tiny-wish-stars-layer" aria-hidden="true">
+      {Array.from({ length: 18 }, (_, index) => (
+        <span key={index} className={`tiny-wish-star tiny-wish-star-${index % 6}`} />
       ))}
     </div>
   );

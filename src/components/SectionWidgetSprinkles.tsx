@@ -1,18 +1,18 @@
 const SECTION_WIDGETS = {
   journey: [
-    { tone: 'warm', text: '路线', meta: '10.10' },
-    { tone: 'mint', text: '午饭', meta: 'daily' },
-    { tone: 'blue', text: '工位', meta: 'side by side' },
+    { tone: 'warm', text: '初识', meta: '10.10' },
+    { tone: 'mint', text: '换工位', meta: 'side by side' },
+    { tone: 'blue', text: '团建', meta: 'together' },
   ],
   letters: [
-    { tone: 'pink', text: '信封', meta: 'open slowly' },
-    { tone: 'warm', text: '贴纸', meta: 'for you' },
-    { tone: 'mint', text: '回信', meta: 'keep' },
+    { tone: 'pink', text: '男妈妈', meta: 'reliable' },
+    { tone: 'warm', text: '姑姑', meta: 'sing coco' },
+    { tone: 'mint', text: '师傅', meta: 'star chart' },
   ],
   closing: [
-    { tone: 'blue', text: '收好', meta: '06.05' },
-    { tone: 'pink', text: '常见', meta: 'afterwards' },
-    { tone: 'warm', text: '再写', meta: 'next page' },
+    { tone: 'blue', text: '常联系', meta: 'afterwards' },
+    { tone: 'pink', text: '一辈子', meta: 'best friends' },
+    { tone: 'warm', text: '再见面', meta: 'next page' },
   ],
 } as const;
 

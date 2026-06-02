@@ -1,11 +1,10 @@
 const PAGE_KEEPSAKES = [
-  { className: 'page-keepsake-stamp', label: '239 DAYS', text: '2025.10.10' },
-  { className: 'page-keepsake-clip', label: 'CLIP', text: '一起' },
-  { className: 'page-keepsake-tab', label: 'TAB', text: 'part 01' },
-  { className: 'page-keepsake-photo', label: 'PHOTO', text: 'lunch' },
-  { className: 'page-keepsake-ticket', label: 'TICKET', text: 'after work' },
-  { className: 'page-keepsake-tab page-keepsake-tab-right', label: 'TAB', text: 'letters' },
-  { className: 'page-keepsake-pin', label: 'PIN', text: '♡' },
+  { className: 'page-keepsake-stamp', label: 'FIRST MEET', text: '初识' },
+  { className: 'page-keepsake-clip', label: 'DESK', text: '换工位' },
+  { className: 'page-keepsake-tab', label: 'SING', text: 'Coco' },
+  { className: 'page-keepsake-photo', label: 'TRIP', text: '百里山水' },
+  { className: 'page-keepsake-ticket', label: 'TEAM', text: '团建' },
+  { className: 'page-keepsake-pin', label: 'KEEP', text: '常见' },
 ] as const;
 
 export function PageKeepsakes() {

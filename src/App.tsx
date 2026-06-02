@@ -8,9 +8,11 @@ import { PaperShape } from './components/paper-shape';
 import {
   LordiconMotionStrip,
   MemoryMotionLayer,
+  PaperPlaneTrailLayer,
   PostmarkDriftLayer,
   StarScatterLayer,
   ThoughtBubbleCluster,
+  TinyWishStarsLayer,
 } from './components/PageAnimatedEffects';
 import { FriendLettersSection } from './components/FriendLettersSection';
 import { SectionWidgetSprinkles } from './components/SectionWidgetSprinkles';
@@ -18,6 +20,8 @@ import {
   ClosingPatternFooter,
   HeroActionBoard,
   LettersStatsPanel,
+  LittleCharmRibbon,
+  MemoryEventStickerStrip,
   MemoryPocketCluster,
   PatternSampler,
   TimelineCardTools,
@@ -165,8 +169,10 @@ function App() {
       <span className="floating-doodle doodle-three" aria-hidden="true">♡</span>
       <PageKeepsakes />
       <StarScatterLayer />
+      <TinyWishStarsLayer />
       <MemoryMotionLayer />
       <PostmarkDriftLayer />
+      <PaperPlaneTrailLayer />
 
       <section id="memory-hero" className="hero-section journal-column">
         <StickyHand />
@@ -265,6 +271,7 @@ function App() {
         </Reveal>
         <ScrapbookSupplyRow />
         <SectionWidgetSprinkles variant="journey" />
+        <MemoryEventStickerStrip />
         <MemoryPocketCluster variant="journey" />
 
         <div className="timeline">
@@ -312,6 +319,7 @@ function App() {
         <LetterToolRow />
         <SectionWidgetSprinkles variant="letters" />
         <LettersStatsPanel />
+        <LittleCharmRibbon />
         <MemoryPocketCluster variant="letters" />
 
         <FriendLettersSection friends={journey.friends} />
