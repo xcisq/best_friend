@@ -317,6 +317,15 @@ function flower(context: CanvasRenderingContext2D, item: FlowerItem, x: number, 
   }
 }
 
+function fitText(context: CanvasRenderingContext2D, text: string, maxWidth: number) {
+  if (context.measureText(text).width <= maxWidth) return text;
+  let fitted = text;
+  while (fitted.length > 1 && context.measureText(`${fitted}…`).width > maxWidth) {
+    fitted = fitted.slice(0, -1);
+  }
+  return `${fitted}…`;
+}
+
 function drawCard(context: CanvasRenderingContext2D, world: CareerWorld, width: number) {
   if (!world.activeNode) return;
   const node = world.activeNode;
@@ -332,9 +341,9 @@ function drawCard(context: CanvasRenderingContext2D, world: CareerWorld, width: 
   context.font = '12px "Patrick Hand", cursive';
   context.fillText(node.date, x + 11, y + 17);
   context.font = 'bold 15px "Patrick Hand", cursive';
-  context.fillText(node.title, x + 11, y + 38);
+  context.fillText(fitText(context, node.title, 150), x + 11, y + 38);
   context.font = '12px "Patrick Hand", cursive';
-  context.fillText(node.detail, x + 11, y + 56);
+  context.fillText(fitText(context, node.detail, 112), x + 11, y + 56);
   context.textAlign = 'right';
   context.fillText(node.meta, x + 160, y + 56);
   context.textAlign = 'left';

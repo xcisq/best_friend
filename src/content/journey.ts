@@ -7,6 +7,12 @@ export interface MediaAsset {
   poster?: string;
 }
 
+export interface PhotoWallAsset extends MediaAsset {
+  id: string;
+  frame: 'polaroid' | 'stamp' | 'torn' | 'postcard';
+  wallNote?: string;
+}
+
 export interface TimelineEntry {
   id: string;
   date: string;
@@ -14,6 +20,16 @@ export interface TimelineEntry {
   note: string;
   paperPreset: PaperPreset;
   color: string;
+}
+
+export interface DetailedTimelineEntry {
+  id: string;
+  date: string;
+  title: string;
+  note: string;
+  railDetail: string;
+  icon: string;
+  tone: 'apricot' | 'mint' | 'sky' | 'pink' | 'butter' | 'lavender';
 }
 
 export interface FriendLetter {
@@ -36,6 +52,8 @@ export interface JourneyConfig {
     intro: string;
   };
   timeline: TimelineEntry[];
+  detailedTimeline: DetailedTimelineEntry[];
+  photoWall: PhotoWallAsset[];
   friends: FriendLetter[];
   closing: string;
 }
@@ -88,6 +106,214 @@ export const journey: JourneyConfig = {
       note: '下面有六封信。不是总结，只是想认真告诉你们：认识你们真的很好。',
       paperPreset: 'receipt',
       color: 'sky',
+    },
+  ],
+  detailedTimeline: [
+    {
+      id: 'shijingshan-hike',
+      date: '2025.11.01',
+      title: '和晓朋去爬石景山',
+      note: '一起往山上走，把北京的秋天和刚刚开始熟悉的日子都收进来了。',
+      railDetail: '和晓朋爬石景山',
+      icon: '△',
+      tone: 'apricot',
+    },
+    {
+      id: 'fortune-reading',
+      date: '2025.11.06',
+      title: '师傅给我算命理',
+      note: '师傅的技能树又多展开了一页。工作之外，也开始有了很多会记很久的小课堂。',
+      railDetail: '师傅的命理小课堂',
+      icon: '✦',
+      tone: 'butter',
+    },
+    {
+      id: 'escape-room-ktv',
+      date: '2025.12.05',
+      title: '第一次团建：密室逃脱',
+      note: '第一次团建，密室逃脱之后又和东旭一起嗨唱起来。热闹的冬天正式开场。',
+      railDetail: '密室逃脱，再和东旭嗨唱',
+      icon: '♫',
+      tone: 'pink',
+    },
+    {
+      id: 'beijing-first-snow',
+      date: '2025.12.12',
+      title: '北京初雪',
+      note: '这一年的北京初雪。普通的上班日因为飘下来的雪，突然变成了值得记住的一天。',
+      railDetail: '北京初雪',
+      icon: '❄',
+      tone: 'sky',
+    },
+    {
+      id: 'harry-potter-bar',
+      date: '2026.01.30',
+      title: '哈利波特酒吧！',
+      note: '像误入了另一段小小的支线故事。冬天里，多了一页带着魔法气息的夜晚。',
+      railDetail: '哈利波特酒吧',
+      icon: '⚡',
+      tone: 'lavender',
+    },
+    {
+      id: 'spa-team-building',
+      date: '2026.02.06',
+      title: '第二次团建：水裹汤泉',
+      note: '姑姑、博文、超超和我一起待到最晚。第二次团建，是泡在热气里舍不得结束的一天。',
+      railDetail: '水裹汤泉，待到最晚',
+      icon: '♨',
+      tone: 'mint',
+    },
+    {
+      id: 'spring-festival-home',
+      date: '2026.02.10',
+      title: '回家过年啦～',
+      note: '短暂回家的时光，竟然已经开始有点想念大家了 ww。原来习惯彼此，是这样悄悄发生的。',
+      railDetail: '回家过年，开始想念大家',
+      icon: '⌂',
+      tone: 'apricot',
+    },
+    {
+      id: 'meet-tuantuan',
+      date: '2026.03.17',
+      title: '第一次看到团团',
+      note: '第一次看到团团，也正式当上了团团叔～。一些新的称呼和牵挂，就这样加入了手帐。',
+      railDetail: '第一次见团团',
+      icon: '♡',
+      tone: 'mint',
+    },
+    {
+      id: 'beijing-birthday',
+      date: '2026.03.30',
+      title: '在北京一起过的第一个生日',
+      note: '第一次在北京和大家一起过生日。被认真记得、被陪伴着，是很柔软也很幸福的事情。',
+      railDetail: '一起过生日',
+      icon: '✿',
+      tone: 'pink',
+    },
+    {
+      id: 'stranger-things-merch',
+      date: '2026.04.18',
+      title: '姑姑陪我找怪奇物语周边',
+      note: '姑姑陪我去找怪奇物语周边。走走逛逛，也把一个很松弛、很舍不得忘记的下午留下来了。',
+      railDetail: '和姑姑找怪奇物语周边',
+      icon: '⌕',
+      tone: 'lavender',
+    },
+    {
+      id: 'stay-at-chaochao-home',
+      date: '2026.05.07',
+      title: '第一天来到超超家住',
+      note: '第一天来到超超家住。超超真的好好🥺，原本的紧张很快就被照顾和安心接住了。',
+      railDetail: '住进超超家',
+      icon: '⌂',
+      tone: 'butter',
+    },
+    {
+      id: 'camping-road-trip',
+      date: '2026.05.30',
+      title: '最最最最开心的一天',
+      note: '和最好的朋友一起自驾去露营，真的好圆满的一天 ww。想起这一天，还是会觉得特别幸福。',
+      railDetail: '和最好的朋友自驾露营',
+      icon: '☼',
+      tone: 'mint',
+    },
+    {
+      id: 'farewell-day',
+      date: '2026.06.05',
+      title: '真的到了说再见的时候',
+      note: '这一天还是来了。不是把这一页合上，而是认真收好：以后翻到这里，还是会觉得认识你们真好。',
+      railDetail: '把这一页认真收好',
+      icon: '♡',
+      tone: 'sky',
+    },
+  ],
+  photoWall: [
+    {
+      id: 'wall-chaochao-01',
+      src: '/letters/dichao/chaochao01.jpeg',
+      alt: '一起走过的回忆照片：超超的照片',
+      caption: '被认真照顾的日子',
+      frame: 'polaroid',
+      wallNote: '安心的小日常',
+    },
+    {
+      id: 'wall-dongxu-01',
+      src: '/letters/dongxu/dongxu01.jpeg',
+      alt: '一起走过的回忆照片：东旭的照片',
+      caption: '唱到很开心的夜晚',
+      frame: 'stamp',
+    },
+    {
+      id: 'wall-wenjin-01',
+      src: '/letters/wenjin/wenjin01.png',
+      alt: '一起走过的回忆照片：文锦的照片',
+      caption: '普通但舍不得删',
+      frame: 'torn',
+    },
+    {
+      id: 'wall-xiaopeng-01',
+      src: '/letters/xiaopeng/xiaopeng01.jpeg',
+      alt: '一起走过的回忆照片：晓朋的照片',
+      caption: '一起出发',
+      frame: 'postcard',
+      wallNote: '一起出发',
+    },
+    {
+      id: 'wall-shifu-01',
+      src: '/letters/shifu/shifu01.png',
+      alt: '一起走过的回忆照片：师傅的照片',
+      caption: '师傅的小课堂',
+      frame: 'polaroid',
+    },
+    {
+      id: 'wall-tianyue-01',
+      src: '/letters/tianyue/tianyue01.jpg',
+      alt: '一起走过的回忆照片：天岳的照片',
+      caption: '短暂但有趣的相遇',
+      frame: 'stamp',
+    },
+    {
+      id: 'wall-dongxu-02',
+      src: '/letters/dongxu/dongxu02.jpeg',
+      alt: '一起走过的回忆照片：一张聚会照片',
+      caption: '热闹地聚在一起',
+      frame: 'postcard',
+      wallNote: '大家一起',
+    },
+    {
+      id: 'wall-chaochao-02',
+      src: '/letters/dichao/chaochao02.jpeg',
+      alt: '一起走过的回忆照片：一张生活照片',
+      caption: '安心的小日常',
+      frame: 'torn',
+    },
+    {
+      id: 'wall-wenjin-02',
+      src: '/letters/wenjin/wenjin02.png',
+      alt: '一起走过的回忆照片：一张值得纪念的照片',
+      caption: '把这一刻留下来',
+      frame: 'stamp',
+    },
+    {
+      id: 'wall-shifu-02',
+      src: '/letters/shifu/shifu02.jpg',
+      alt: '一起走过的回忆照片：一张球搭子照片',
+      caption: '下次继续切磋',
+      frame: 'polaroid',
+    },
+    {
+      id: 'wall-xiaopeng-02',
+      src: '/letters/xiaopeng/xiaopeng02.jpeg',
+      alt: '一起走过的回忆照片：一张大家一起的照片',
+      caption: '大家一起',
+      frame: 'torn',
+    },
+    {
+      id: 'wall-tianyue-02',
+      src: '/letters/tianyue/tianyue02.jpg',
+      alt: '一起走过的回忆照片：一张想留到很久以后的照片',
+      caption: '留到很久以后',
+      frame: 'postcard',
     },
   ],
   friends: [

@@ -1,4 +1,5 @@
 import type { CareerNode } from './careerJourneyTypes';
+import { journey } from '../../../content/journey';
 
 export const CAREER_WORLD_WIDTH = 4800;
 export const CAREER_START_DATE = '2025.10.10';
@@ -6,13 +7,6 @@ export const CAREER_END_DATE = '2026.06.05';
 export const CAREER_SPEED = 74;
 export const CAREER_INK = '#2a2836';
 export const CAREER_GROUND_RATIO = 0.78;
-
-const nodeDetails = [
-  ['2025.10.10', '第一次坐到你们身边', '实习开始', '第 1 天'],
-  ['2025.12.01', '普通日子慢慢变熟', '一起吃饭、吐槽、赶进度', '冬天'],
-  ['2026.03.15', '把忙碌折进手帐', '那些后来会想念的小事', '春天'],
-  ['2026.06.05', '这一页先写到这里', '离开前的一封纪念信', '第 239 天'],
-] as const;
 
 const startTime = Date.UTC(2025, 9, 10);
 const endTime = Date.UTC(2026, 5, 5);
@@ -49,12 +43,12 @@ export const CAREER_TIME_TICKS = [
 }));
 
 export function createCareerNodes(): CareerNode[] {
-  return nodeDetails.map(([date, title, detail, meta]) => ({
-    date,
-    title,
-    detail,
-    meta,
-    x: progressFromDate(date) * CAREER_WORLD_WIDTH,
+  return journey.detailedTimeline.map((entry, index) => ({
+    date: entry.date,
+    title: entry.title,
+    detail: entry.railDetail,
+    meta: `${index + 1} / ${journey.detailedTimeline.length}`,
+    x: progressFromDate(entry.date) * CAREER_WORLD_WIDTH,
     triggered: false,
   }));
 }

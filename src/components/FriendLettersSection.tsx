@@ -215,6 +215,7 @@ function LetterPanel({
         width={780}
         minHeight={560}
         maxWidth={820}
+        maxHeight={6000}
         paperColor="cloud"
         strokeColor={INK}
         strokeWidth={1.6}

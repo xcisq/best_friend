@@ -14,8 +14,12 @@ import {
   StarScatterLayer,
   ThoughtBubbleCluster,
   TinyWishStarsLayer,
+  WarmGlowLayer,
 } from './components/PageAnimatedEffects';
 import { FriendLettersSection } from './components/FriendLettersSection';
+import { DetailedMemoryTimeline } from './components/DetailedMemoryTimeline';
+import { KeepsakeStickerBoard } from './components/KeepsakeStickerBoard';
+import { MemoryPhotoWall } from './components/MemoryPhotoWall';
 import { SectionWidgetSprinkles } from './components/SectionWidgetSprinkles';
 import {
   ClosingPatternFooter,
@@ -50,6 +54,7 @@ const ACCENT_INK = '#9c6143';
 const PROGRESS_SECTIONS: ProgressSection[] = [
   { id: 'memory-hero', label: '开场', icon: 'heart' },
   { id: 'shared-journey', label: '一起走过', icon: 'leaf' },
+  { id: 'memory-calendar', label: '纪念节点', icon: 'star' },
   { id: 'friend-letters', label: '六封信', icon: 'envelope' },
   { id: 'closing-note', label: '结尾', icon: 'star' },
 ];
@@ -171,6 +176,7 @@ function App() {
       <PageKeepsakes />
       <StarScatterLayer />
       <TinyWishStarsLayer />
+      <WarmGlowLayer />
       <MemoryMotionLayer />
       <PostmarkDriftLayer />
       <PaperPlaneTrailLayer />
@@ -273,6 +279,7 @@ function App() {
         </Reveal>
         <ScrapbookSupplyRow />
         <SectionWidgetSprinkles variant="journey" />
+        <MemoryPhotoWall photos={journey.photoWall} />
         <MemoryEventStickerStrip />
         <MemoryPocketCluster variant="journey" />
 
@@ -305,6 +312,19 @@ function App() {
             </Reveal>
           ))}
         </div>
+      </section>
+
+      <section id="memory-calendar" className="detailed-memory-section journal-column" aria-labelledby="memory-calendar-title">
+        <Reveal>
+          <SectionHeader
+            kicker="PART 01.5 · MEMORY CALENDAR"
+            badge="一页一页收好"
+            title={<><span id="memory-calendar-title">再把这些具体的日子，</span><br />一枚一枚钉在这里。</>}
+            note="从爬山、团建到露营和告别，十三个日子组成了更完整的 239 天。"
+          />
+        </Reveal>
+        <DetailedMemoryTimeline />
+        <KeepsakeStickerBoard />
       </section>
 
       <DoodleDivider symbol="♡" />

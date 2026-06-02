@@ -347,6 +347,16 @@ export function TinyWishStarsLayer() {
   );
 }
 
+export function WarmGlowLayer() {
+  return (
+    <div className="warm-glow-layer" aria-hidden="true">
+      {Array.from({ length: 10 }, (_, index) => (
+        <span key={index} className={`warm-glow-orb warm-glow-orb-${index + 1}`} />
+      ))}
+    </div>
+  );
+}
+
 export function MemoryMotionLayer() {
   return (
     <div className="memory-motion-layer" aria-hidden="true">

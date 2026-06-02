@@ -4,10 +4,12 @@ import type { MediaAsset } from '../content/journey';
 export function LetterPhotoLightbox({
   photo,
   friendName,
+  kicker,
   onClose,
 }: {
   photo: MediaAsset;
   friendName: string;
+  kicker?: string;
   onClose: () => void;
 }) {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -51,7 +53,7 @@ export function LetterPhotoLightbox({
               {photo.caption && <p className="letter-photo-caption">{photo.caption}</p>}
             </div>
             <div className="letter-photo-toolbar">
-              <span className="letter-photo-kicker">PHOTO FOR {friendName}</span>
+              <span className="letter-photo-kicker">{kicker ?? `PHOTO FOR ${friendName}`}</span>
               <button ref={closeButtonRef} type="button" className="letter-photo-close" onClick={onClose}>
                 收起这张照片
               </button>

@@ -1,10 +1,20 @@
+import { journey } from '../../../content/journey';
+
+const startTime = Date.UTC(2025, 9, 10);
+const endTime = Date.UTC(2026, 5, 5);
+
+function progressFromDate(date: string) {
+  const [year, month, day] = date.split('.').map(Number);
+  return (Date.UTC(year, month - 1, day) - startTime) / (endTime - startTime);
+}
+
 export function StaticCareerJourney() {
-  const nodes = [
-    { x: 42, label: '2025.10.10' },
-    { x: 248, label: '2025.12' },
-    { x: 458, label: '2026.03' },
-    { x: 670, label: '2026.06.05' },
-  ];
+  const nodes = journey.detailedTimeline.map((entry, index) => ({
+    x: 28 + progressFromDate(entry.date) * 664,
+    label: entry.date.slice(5),
+    icon: entry.icon,
+    showLabel: index % 2 === 0 || index === journey.detailedTimeline.length - 1,
+  }));
 
   return (
     <svg className="career-journey-static" viewBox="0 0 720 220" aria-hidden="true">
@@ -24,10 +34,10 @@ export function StaticCareerJourney() {
       </g>
       <path d="M10 170 C150 168 260 173 392 170 S590 172 710 170" />
       {nodes.map((node) => (
-        <g key={node.label}>
-          <circle cx={node.x} cy="148" r="13" />
-          <path d={`M${node.x - 7} 143 l4 3 M${node.x + 7} 143 l-4 3 M${node.x - 5} 161 v8 M${node.x + 5} 161 v8`} />
-          <text x={node.x} y="198">{node.label}</text>
+        <g key={`${node.label}-${node.x}`}>
+          <circle cx={node.x} cy="148" r="8" />
+          <text className="career-journey-static-icon" x={node.x} y="152">{node.icon}</text>
+          {node.showLabel ? <text x={node.x} y="185">{node.label}</text> : null}
         </g>
       ))}
       <g transform="translate(120 124)">

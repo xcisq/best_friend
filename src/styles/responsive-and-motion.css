@@ -7,6 +7,11 @@
     transform: translateX(4px);
   }
 
+  .keepsake-sticker:hover {
+    filter: brightness(1.06) drop-shadow(0 0 10px rgba(239, 197, 109, 0.42));
+    transform: translateY(-5px) rotate(var(--keepsake-rotate, -1deg)) scale(1.04);
+  }
+
   .scroll-progress-node:hover span:last-child,
   .scroll-progress-node:focus-visible span:last-child {
     opacity: 1;
@@ -172,6 +177,7 @@
   }
 
   .journey-section,
+  .detailed-memory-section,
   .letters-section {
     padding-top: 97px;
   }
@@ -242,6 +248,81 @@
   .timeline-note span {
     font-size: 14px;
     line-height: 1.72;
+  }
+
+  .detailed-memory-list {
+    gap: 16px;
+    margin-top: 32px;
+    padding-top: 12px;
+  }
+
+  .detailed-memory-list::before {
+    left: 15px;
+  }
+
+  .detailed-memory-entry,
+  .detailed-memory-entry:nth-child(odd),
+  .detailed-memory-entry:nth-child(even) {
+    width: calc(100% - 43px);
+    justify-self: end;
+    text-align: left;
+  }
+
+  .detailed-memory-entry:nth-child(odd) .detailed-memory-marker,
+  .detailed-memory-entry:nth-child(even) .detailed-memory-marker {
+    top: 18px;
+    right: auto;
+    left: -41px;
+  }
+
+  .detailed-memory-entry:nth-child(odd) .detailed-memory-month,
+  .detailed-memory-entry:nth-child(even) .detailed-memory-month {
+    top: -11px;
+    right: auto;
+    left: -35px;
+    font-size: 8px;
+  }
+
+  .detailed-memory-note {
+    min-height: 0;
+    padding: 15px 16px 17px;
+  }
+
+  .detailed-memory-note h3 {
+    font-size: 19px;
+  }
+
+  .detailed-memory-note span {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .keepsake-sticker-board {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 36px;
+    padding: 19px 16px 20px;
+  }
+
+  .keepsake-sticker-heading h3 {
+    font-size: 21px;
+  }
+
+  .keepsake-sticker-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+  }
+
+  .keepsake-sticker {
+    min-height: 88px;
+  }
+
+  .keepsake-sticker i {
+    font-size: 24px;
+  }
+
+  .keepsake-sticker b {
+    font-size: 14px;
   }
 
   .tickets-grid {
@@ -319,6 +400,17 @@
     display: block;
     height: 176px;
   }
+
+  .warm-glow-orb {
+    width: 104px;
+    height: 104px;
+    filter: blur(9px);
+    opacity: 0.28;
+  }
+
+  .warm-glow-orb:nth-child(n + 6) {
+    display: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -350,6 +442,16 @@
   .lordicon-motion,
   .lordicon-motion svg,
   .bubble-badge {
+    animation: none;
+    transform: none;
+  }
+
+  .warm-glow-orb,
+  .detailed-memory-entry.is-featured .detailed-memory-marker,
+  .keepsake-sticker,
+  .ticket-wrap.is-active::before,
+  .ticket-wrap.is-pending::before,
+  .ticket-wrap:focus-within::before {
     animation: none;
     transform: none;
   }
