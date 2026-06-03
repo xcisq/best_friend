@@ -20,6 +20,7 @@ import { FriendLettersSection } from './components/FriendLettersSection';
 import { DetailedMemoryTimeline } from './components/DetailedMemoryTimeline';
 import { KeepsakeStickerBoard } from './components/KeepsakeStickerBoard';
 import { MemoryPhotoWall } from './components/MemoryPhotoWall';
+import { BackgroundMusicCard } from './components/BackgroundMusicCard';
 import { SectionWidgetSprinkles } from './components/SectionWidgetSprinkles';
 import {
   ClosingPatternFooter,
@@ -255,6 +256,7 @@ function App() {
               </div>
               <HeroMemoryChips />
               <HeroActionBoard />
+              <BackgroundMusicCard />
               <p className="hero-intro">{journey.hero.intro}</p>
               <p className="hero-sign">写在离开前的这一周</p>
             </div>
